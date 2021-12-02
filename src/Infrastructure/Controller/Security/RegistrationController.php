@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Infrastructure\Controller;
+namespace App\Infrastructure\Controller\Security;
 
 use App\Application\User\RegisterUser\RegisterUserRequest;
 use App\Application\User\RegisterUser\RegisterUserService;
