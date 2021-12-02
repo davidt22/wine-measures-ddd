@@ -122,7 +122,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getSalt()
+    public function getSalt(): ?string
     {
         return null;
     }
