@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class RegistrationController extends AbstractController
 {
-    #[Route('/registration', name: 'registration')]
+    #[Route('/registry', name: 'registry')]
     public function index(
         Request $request,
         RegisterUserService $registerUserService,
@@ -33,7 +33,7 @@ class RegistrationController extends AbstractController
             $this->addFlash('success', 'Usuario registrado con exito');
 
             // TODO: redirect to login
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('login');
         }
 
         return $this->render('registration/index.html.twig', [

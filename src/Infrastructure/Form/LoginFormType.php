@@ -13,7 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class RegistrationFormType extends AbstractType
+class LoginFormType extends AbstractType
 {
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -29,16 +29,6 @@ class RegistrationFormType extends AbstractType
             ->add('password', PasswordType::class, [
                 'label' => 'Contraseña',
                 'attr' => ['autocomplete' => 'new-password'],
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Introduce un password',
-                    ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Tu password debe tener al menos {{ limit }} caracteres.',
-                        'max' => 50,
-                    ]),
-                ],
             ])
         ;
     }

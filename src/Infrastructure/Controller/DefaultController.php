@@ -11,6 +11,10 @@ class DefaultController extends AbstractController
     #[Route('/', name: 'homepage')]
     public function homepage(): Response
     {
+        if (!$this->getUser()) {
+            $this->redirectToRoute('login');
+        }
+
         return $this->render('index.html.twig');
     }
 }
