@@ -53,4 +53,9 @@ final class MeasurementVariety
     {
         return in_array($value, self::VALUES);
     }
+
+    public static function getValues(): array
+    {
+        return self::VALUES;
+    }
 }

@@ -31,10 +31,8 @@ class MeasurementRepositoryDoctrine extends ServiceEntityRepository implements M
         }
     }
 
-    public function byUser(User $user): array
+    public function searchAll(): array
     {
-        return $this->findBy([
-            'user' => $user
-        ]);
+        return $this->findAll();
     }
 }

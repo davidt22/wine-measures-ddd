@@ -5,5 +5,40 @@
     {% if app.user %}
         <h2>Bienvenido {{ app.user.email }}</h2>
         <h3>Accede desde la cabecera para realizar acciones</h3>
+
+        <hr>
+
+        <h4>LISTA DE MEDICIONES</h4>
+        <p class="text-center">
+            <a href="{{ path('new_measurement') }}" class="btn btn-primary">Añadir nueva medición</a>
+        </p>
+        <div class="row">
+            {% for elem in measurements %}
+                <div class="col mt-3">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-header">
+                            Medicion
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">{{ elem.wineName.value }}</li>
+                            <li class="list-group-item">{{ elem.year.value }}</li>
+                            <li class="list-group-item">{{ elem.variety.value }}</li>
+                            <li class="list-group-item">{{ elem.temp.value }}</li>
+                            <li class="list-group-item">{{ elem.graduation.value }}</li>
+                            <li class="list-group-item">{{ elem.ph.value }}</li>
+                            <li class="list-group-item">{{ elem.obs.value }}</li>
+                            <li class="list-group-item">{{ elem.user.email }}</li>
+                        </ul>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col">
+                    <hr style="color: white">
+                    <p class="text-center">
+                        No hay mediciones todavia.
+                    </p>
+                </div>
+            {% endfor %}
+        </div>
     {% endif %}
 {% endblock %}

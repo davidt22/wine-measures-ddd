@@ -7,7 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class LogoutController extends AbstractController
 {
-    #[Route('/logout', name: 'logout')]
+    #[Route('/private/logout', name: 'logout')]
     public function logout()
     {
         $this->addFlash('success', 'Sesión cerrada con exito.');

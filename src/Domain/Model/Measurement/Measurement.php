@@ -91,7 +91,7 @@ class Measurement
         $this->user = $user;
     }
 
-    public function create(
+    public static function create(
         MeasurementId $id,
         MeasurementYear $year,
         MeasurementVariety $variety,
