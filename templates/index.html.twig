@@ -2,4 +2,8 @@
 
 {% block body %}
     <h1>Página principal</h1>
+    {% if app.user %}
+        <h2>Bienvenido {{ app.user.email }}</h2>
+        <h3>Accede desde la cabecera para realizar acciones</h3>
+    {% endif %}
 {% endblock %}

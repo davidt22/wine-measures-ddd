@@ -1,0 +1,18 @@
+{% set flashbag = app.session.flashbag.all() %}
+{% if flashbag | length > 0 %}
+    <div class="row">
+        <div class="col">
+            <div class="flash-container">
+                {% for tipo, mensajes in flashbag %}
+                    {% for mensaje in mensajes %}
+                        <div class="row alert alert-{{ tipo == 'info' ? 'success' : tipo }} alert-dismissable"
+                             style="margin: auto 15px;">
+                            <button type="button" class="close mr-2" data-dismiss="alert">×</button>
+                            {{ (tipo == 'error' or tipo == 'warning') ? '<strong>Error: </strong> ' : '' | raw }} {{ mensaje }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endif %}

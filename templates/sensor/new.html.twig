@@ -12,16 +12,17 @@
         <div class="col"></div>
         <div class="col">
             <p>
-                {{ form_label(form.typeId) }}
-                {{ form_widget(form.typeId) }}
+                {{ form_row(form.typeId) }}
             </p>
         </div>
+        <div class="col"></div>
+    </div>
+    <div class="row">
+        <div class="col"></div>
         <div class="col">
             <p>
-                {{ form_label(form.value) }}
-                {{ form_widget(form.value) }}
+                {{ form_row(form.value) }}
             </p>
-
         </div>
         <div class="col"></div>
     </div>
@@ -33,6 +34,6 @@
     {{ form_end(form) }}
 
     <p class="text-center">
-        <a href="{{ path('homepage') }}">Home</a>
+        <a href="{{ path('homepage') }}">Volver a la página principal</a>
     </p>
 {% endblock %}

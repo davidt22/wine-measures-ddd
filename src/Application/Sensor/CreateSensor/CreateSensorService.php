@@ -8,7 +8,6 @@ use App\Domain\Model\Sensor\SensorRepositoryInterface;
 use App\Domain\Model\Sensor\SensorValue;
 use App\Domain\Model\SensorType\SensorTypeId;
 use App\Domain\Model\SensorType\SensorTypeRepositoryInterface;
-use App\Domain\Model\User\User;
 
 class CreateSensorService
 {
