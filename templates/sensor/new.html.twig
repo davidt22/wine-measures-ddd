@@ -1,26 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Registro{% endblock %}
+{% block title %}Sensor{% endblock %}
 
 {% block body %}
     {{ form_start(form) }}
     {{ form_errors(form) }}
 
-    <h1>Registro</h1>
+    <h1>Nuevo sensor</h1>
 
     <div class="row">
         <div class="col"></div>
         <div class="col">
             <p>
-                {{ form_label(form.email) }}
-                {{ form_widget(form.email) }}
+                {{ form_row(form.typeId) }}
             </p>
-
         </div>
+        <div class="col"></div>
+    </div>
+    <div class="row">
+        <div class="col"></div>
         <div class="col">
             <p>
-                {{ form_label(form.password) }}
-                {{ form_widget(form.password) }}
+                {{ form_row(form.value) }}
             </p>
         </div>
         <div class="col"></div>
@@ -33,6 +34,6 @@
     {{ form_end(form) }}
 
     <p class="text-center">
-        <a href="{{ path('login') }}">Login</a>
+        <a href="{{ path('homepage') }}">Volver a la página principal</a>
     </p>
 {% endblock %}
