@@ -13,6 +13,9 @@ use App\Domain\Model\SensorType\SensorTypeId;
 use App\Domain\Model\SensorType\SensorTypeName;
 use App\Domain\Model\SensorType\SensorTypeNotFOundException;
 use App\Domain\Model\SensorType\SensorTypeRepositoryInterface;
+use App\Domain\Model\User\User;
+use App\Domain\Model\User\UserId;
+use App\Domain\Model\User\UserRepositoryInterface;
 use PHPUnit\Framework\TestCase;
 
 class CreateSensorTest extends TestCase
@@ -20,6 +23,7 @@ class CreateSensorTest extends TestCase
     private CreateSensorService $createSensorService;
     private SensorRepositoryInterface $sensorRepository;
     private SensorTypeRepositoryInterface $sensorTypeRepository;
+    private UserRepositoryInterface $userRepository;
 
     protected function setUp(): void
     {
@@ -27,7 +31,12 @@ class CreateSensorTest extends TestCase
 
         $this->sensorRepository = $this->createMock(SensorRepositoryInterface::class);
         $this->sensorTypeRepository = $this->createMock(SensorTypeRepositoryInterface::class);
-        $this->createSensorService = new CreateSensorService($this->sensorRepository, $this->sensorTypeRepository);
+        $this->userRepository = $this->createMock(UserRepositoryInterface::class);
+        $this->createSensorService = new CreateSensorService(
+            $this->sensorRepository,
+            $this->sensorTypeRepository,
+            $this->userRepository
+        );
     }
 
     public function testItCreateSensorSuccess()
@@ -37,16 +46,25 @@ class CreateSensorTest extends TestCase
             ->method('byIdOrFail')
             ->willReturn($sensorType);
 
+        $user = new User(
+            new UserId()
+        );
+
+        $this->userRepository
+            ->method('byIdOrFail')
+            ->willReturn($user);
+
         $newSensor = Sensor::create(
             new SensorId('12da34'),
             SensorValue::fromValue(0.1),
-            $sensorType
+            $sensorType,
+            $user
         );
         $this->sensorRepository
             ->method('save')
             ->willReturn($newSensor);
 
-        $request = new CreateSensorRequest(0.1, 'a123');
+        $request = new CreateSensorRequest(0.1, 'a123', $user->getId());
         $sensor = $this->createSensorService->execute($request);
 
         $this->assertEquals(0.1, $sensor->value()->value());
@@ -65,13 +83,14 @@ class CreateSensorTest extends TestCase
         $newSensor = Sensor::create(
             new SensorId('12da34'),
             SensorValue::fromValue(0.1),
-            $sensorType
+            $sensorType,
+            $this->createMock(User::class)
         );
         $this->sensorRepository
             ->method('save')
             ->willReturn($newSensor);
 
-        $request = new CreateSensorRequest(0.1, 'a123');
+        $request = new CreateSensorRequest(0.1, 'a123', new UserId());
         $this->createSensorService->execute($request);
     }
 }

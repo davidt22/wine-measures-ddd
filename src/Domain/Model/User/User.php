@@ -12,11 +12,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
+     * @ORM\Embedded(class="UserId", columnPrefix=false)
      */
-    private ?int $id;
+    private ?UserId $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
@@ -29,22 +27,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private array $roles = [];
 
     /**
-     * @var string The hashed password
-     * @ORM\Column(type="string")
+     * @ORM\Embedded(class="UserPass", columnPrefix=false)
      */
-    private string $password;
+    private UserPass $password;
 
-    public static function create(string $email, string $password): User
+    public function __construct(?UserId $id = null)
     {
-        $user = new self();
+        $this->id = $id;
+        $this->roles = [];
+    }
+
+    public static function create(string $email, UserPass $password): User
+    {
+        $user = new User(new UserId());
         $user->setEmail($email);
         $user->setPassword($password);
 
         return $user;
     }
 
-
-    public function getId(): ?int
+    public function getId(): ?UserId
     {
         return $this->id;
     }
@@ -103,10 +105,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getPassword(): string
     {
-        return $this->password;
+        return $this->password->value();
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(UserPass $password): self
     {
         $this->password = $password;
 
