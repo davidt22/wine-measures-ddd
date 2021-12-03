@@ -3,6 +3,7 @@
 namespace App\Application\User\RegisterUser;
 
 use App\Domain\Model\User\User;
+use App\Domain\Model\User\UserPass;
 use App\Domain\Model\User\UserRepositoryInterface;
 
 class RegisterUserService
@@ -16,7 +17,10 @@ class RegisterUserService
 
     public function execute(RegisterUserRequest $request): User
     {
-        $user = User::create($request->getEmail(), $request->getEncodedPassword());
+        $user = User::create(
+            $request->getEmail(),
+            UserPass::fromValue($request->getEncodedPassword())
+        );
 
         return $this->userRepository->save($user);
     }

@@ -6,11 +6,13 @@ class CreateSensorRequest
 {
     private float $value;
     private string $typeId;
+    private string $userId;
 
-    public function __construct(float $value, string $typeId)
+    public function __construct(float $value, string $typeId, string $userId)
     {
         $this->value = $value;
         $this->typeId = $typeId;
+        $this->userId = $userId;
     }
 
     public function getValue(): float
@@ -21,5 +23,10 @@ class CreateSensorRequest
     public function getTypeId(): string
     {
         return $this->typeId;
+    }
+
+    public function getUserId(): string
+    {
+        return $this->userId;
     }
 }

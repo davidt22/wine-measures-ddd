@@ -5,6 +5,7 @@ namespace App\Infrastructure\Controller\Security;
 use App\Application\User\RegisterUser\RegisterUserRequest;
 use App\Application\User\RegisterUser\RegisterUserService;
 use App\Domain\Model\User\User;
+use App\Infrastructure\Form\DTO\RegistrationDTO;
 use App\Infrastructure\Form\RegistrationFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,14 +21,15 @@ class RegistrationController extends AbstractController
         RegisterUserService $registerUserService,
         UserPasswordHasherInterface $passwordHasher
     ): Response {
-        $user = new User();
-        $form = $this->createForm(RegistrationFormType::class, $user);
+        $registrationDTO = new RegistrationDTO();
+        $form = $this->createForm(RegistrationFormType::class, $registrationDTO);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $encodedPassword = $passwordHasher->hashPassword($user, $user->getPassword());
+            $user = new User();
+            $encodedPassword = $passwordHasher->hashPassword($user, $registrationDTO->getPassword());
             $registerUserService->execute(
-                new RegisterUserRequest($user->getEmail(), $encodedPassword)
+                new RegisterUserRequest($registrationDTO->getEmail(), $encodedPassword)
             );
 
             $this->addFlash('success', 'Usuario registrado con exito');

@@ -4,6 +4,7 @@ namespace App\Infrastructure\Form;
 
 
 use App\Domain\Model\User\User;
+use App\Infrastructure\Form\DTO\RegistrationDTO;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -46,7 +47,7 @@ class RegistrationFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
+            'data_class' => RegistrationDTO::class,
         ]);
     }
 }

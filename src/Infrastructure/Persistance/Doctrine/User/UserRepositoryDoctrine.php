@@ -3,6 +3,8 @@
 namespace App\Infrastructure\Persistance\Doctrine\User;
 
 use App\Domain\Model\User\User;
+use App\Domain\Model\User\UserId;
+use App\Domain\Model\User\UserNotFoundException;
 use App\Domain\Model\User\UserRepositoryInterface;
 use App\Shared\Domain\Exception\DatabaseException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -27,6 +29,18 @@ class UserRepositoryDoctrine extends ServiceEntityRepository implements UserRepo
             return $user;
         } catch (\Exception $exception) {
             throw new DatabaseException($exception->getMessage());
+        }
+    }
+
+    /**
+     * @throws UserNotFoundException
+     */
+    public function byIdOrFail(UserId $id): User
+    {
+        try {
+            return $this->find($id->id());
+        } catch (\Exception $exception) {
+            throw new UserNotFoundException();
         }
     }
 }

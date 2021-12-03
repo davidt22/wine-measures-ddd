@@ -26,9 +26,10 @@ class RegisterUserTest extends TestCase
     {
         $this->userRepository
             ->method('save')
-            ->willReturn(new User());
+            ->willReturn($this->createMock(User::class));
 
-        $user = $this->registerUserService->execute(new RegisterUserRequest('email@email.com', 'dsade3243dasas'));
+        $request = new RegisterUserRequest('email@email.com', '123456');
+        $user = $this->registerUserService->execute($request);
 
         $this->assertNotNull($user);
     }
@@ -43,5 +44,4 @@ class RegisterUserTest extends TestCase
 
         $this->registerUserService->execute(new RegisterUserRequest('email@email.com', 'dsade3243dasas'));
     }
-
 }

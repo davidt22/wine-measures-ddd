@@ -3,6 +3,7 @@
 namespace App\Domain\Model\Sensor;
 
 use App\Domain\Model\SensorType\SensorType;
+use App\Domain\Model\User\User;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -25,16 +26,22 @@ class Sensor
      */
     private SensorType $type;
 
-    public function __construct(SensorId $id, SensorValue $value, SensorType $type)
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Domain\Model\User\User")
+     */
+    private User $user;
+
+    public function __construct(SensorId $id, SensorValue $value, SensorType $type, User $user)
     {
         $this->id = $id;
         $this->value = $value;
         $this->type = $type;
+        $this->user = $user;
     }
 
-    public static function create(SensorId $id, SensorValue $value, SensorType $type): Sensor
+    public static function create(SensorId $id, SensorValue $value, SensorType $type, User $user): Sensor
     {
-        return new self($id, $value, $type);
+        return new self($id, $value, $type, $user);
     }
 
     public function id(): SensorId
@@ -50,5 +57,10 @@ class Sensor
     public function type(): SensorType
     {
         return $this->type;
+    }
+
+    public function user(): User
+    {
+        return $this->user;
     }
 }

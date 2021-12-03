@@ -4,6 +4,7 @@ namespace App\Infrastructure\Controller\Sensor;
 
 use App\Application\Sensor\CreateSensor\CreateSensorRequest;
 use App\Application\Sensor\CreateSensor\CreateSensorService;
+use App\Domain\Model\User\User;
 use App\Infrastructure\Form\DTO\SensorDTO;
 use App\Infrastructure\Form\SensorFormType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,9 +23,12 @@ class CreateSensorController extends AbstractController
          $form->handleRequest($request);
 
          if ($form->isSubmitted() && $form->isValid()) {
-            $createSensorService->execute(
-                new CreateSensorRequest($sensorDTO->getValue(), $sensorDTO->getTypeId())
-            );
+             /** @var User $user */
+             $user = $this->getUser();
+
+             $createSensorService->execute(
+                 new CreateSensorRequest($sensorDTO->getValue(), $sensorDTO->getTypeId(), $user->getId())
+             );
 
             $this->addFlash('success', 'Sensor creado correctamente');
 
