@@ -3,7 +3,6 @@
 namespace App\Domain\Model\Measurement;
 
 use Doctrine\ORM\Mapping as ORM;
-use Ramsey\Uuid\Uuid;
 
 /**
  * @ORM\Embeddable()

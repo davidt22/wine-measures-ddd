@@ -2,9 +2,7 @@
 
 namespace App\Domain\Model\Sensor;
 
-use App\Domain\Model\SensorType\SensorType;
 use Doctrine\ORM\Mapping as ORM;
-use Ramsey\Uuid\Uuid;
 
 /**
  * @ORM\Embeddable
