@@ -4,7 +4,6 @@ namespace App\Infrastructure\Controller\Measurement;
 
 use App\Application\Measurement\CreateMeasurement\CreateMeasurementRequest;
 use App\Application\Measurement\CreateMeasurement\CreateMeasurementService;
-use App\Application\Sensor\CreateSensor\CreateSensorService;
 use App\Domain\Model\User\User;
 use App\Infrastructure\Form\DTO\MeasurementDTO;
 use App\Infrastructure\Form\MeasurementFormType;
@@ -42,7 +41,7 @@ class CreateMeasurementController extends AbstractController
                  )
              );
 
-            $this->addFlash('success', 'Medida creada correctamente');
+            $this->addFlash('success', 'Medición creada correctamente');
 
             return $this->redirectToRoute('homepage');
          }
